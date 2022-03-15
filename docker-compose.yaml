@@ -1,0 +1,29 @@
+version: "3"
+
+services:
+  api:
+    build: ./
+    container_name: prueba-matchbox
+    volumes:
+      - ./:/home/nodejs/app
+      - /home/nodejs/app/node_modules
+    networks:
+      - kuntur_network
+    ports:
+      - 3001:3001
+  mongo:
+    container_name: mongo
+    image: mongo:latest
+    volumes:
+      - mongo_data:/data/db
+    ports:
+      - 27017:27017
+    networks:
+      - kuntur_network
+
+volumes:
+  mongo_data:
+    driver: local
+networks:
+  kuntur_network:
+    driver: bridge
